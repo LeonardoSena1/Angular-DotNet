@@ -1,5 +1,6 @@
 using API_DotNet.Infrastructures;
 using API_DotNet.Repository.Encryption;
+using API_DotNet.Repository.Product;
 using API_DotNet.Repository.User;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddTransient<IEncryptionService, EncryptionService>();
 
 builder.Services.AddSwaggerGen();
