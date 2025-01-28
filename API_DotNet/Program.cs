@@ -1,6 +1,7 @@
 using API_DotNet.Infrastructures;
 using API_DotNet.Repository.Customer;
 using API_DotNet.Repository.Encryption;
+using API_DotNet.Repository.Order;
 using API_DotNet.Repository.Product;
 using API_DotNet.Repository.User;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddTransient<IEncryptionService, EncryptionService>();
 
 builder.Services.AddSwaggerGen();
