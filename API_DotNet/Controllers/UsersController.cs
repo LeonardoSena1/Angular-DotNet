@@ -1,5 +1,4 @@
-﻿using API_DotNet.Infrastructures;
-using API_DotNet.Models.User;
+﻿using API_DotNet.Models.User;
 using API_DotNet.Repository.User;
 using API_DotNet.Repository.User.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -10,13 +9,10 @@ namespace API_DotNet.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
         private readonly IUsersService _usersService;
 
-        public UsersController(ApplicationDbContext context
-            , IUsersService usersService)
+        public UsersController(IUsersService usersService)
         {
-            _context = context;
             _usersService = usersService;
         }
 
