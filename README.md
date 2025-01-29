@@ -104,5 +104,28 @@ dotnet restore
 # Execute a aplicação com IIS Express
 dotnet run
 ```
+#### Configuração da ConnectionString
+No arquivo appsettings.json, você precisa configurar a ConnectionString para se conectar ao seu banco de dados. Substitua os valores padrão pelos dados do seu ambiente:
+
+```
+ "ConnectionStrings": {
+   "DefaultConnection": "server=localhost;database=db_api_dotnet;user=admin;password=rpwUD9H1]{@:_oMo"
+ },
+```
+- SEU_SERVIDOR: O endereço do servidor do banco de dados (ex: localhost).
+
+ - SEU_BANCO_DE_DADOS: O nome do banco de dados que você deseja usar (ex: db_api_dotnet).
+
+ - SEU_USUARIO: O nome de usuário para acessar o banco de dados (ex: admin).
+
+ - SUA_SENHA: A senha para acessar o banco de dados.
+
+#### Criando o Banco de Dados
+Após configurar a ConnectionString, você pode criar o banco de dados e aplicar as migrações usando o Entity Framework Core.
+
+```
+Update-Database
+```
+
 
 *O backend estará disponível em: http://localhost:33556/ ou pela porta configurada no launchSettings.json.*
