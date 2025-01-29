@@ -1,0 +1,75 @@
+<div class="card">
+
+    <p-button (click)="showDialog()" label="Cadastrar novo Cliente" icon="pi pi-plus" [raised]="true"
+        severity="secondary" />
+    <br />
+    <br />
+
+    <p-table [value]="customers" [tableStyle]="{ 'min-width': '50rem' }" class="styled-table">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 120px;">Ações</th>
+                <th>Id</th>
+                <th>CNPJ</th>
+                <th>Razão Social</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-Customer let-rowIndex="rowIndex">
+            <tr [ngClass]="{'even-row': rowIndex % 2 === 0}">
+                <td style="width: 120px;">
+                    <div class="flex">
+                        <i class="pi pi-file-edit" (click)="openModalEdit(Customer)"
+                            style="color: var(--primary-color); cursor: pointer;"></i>
+                        <i class="pi pi-times" (click)="deleteCustomer(Customer.id)"
+                            style="color: var(--color-red); cursor: pointer;"></i>
+                    </div>
+                </td>
+                <td>{{ Customer.id }}</td>
+                <td>{{ Customer.cnpj }}</td>
+                <td>{{ Customer.razaoSocial }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <br />
+    <br />
+    <div> No total, existem {{ customers ? customers.length : 0 }} Clientes. </div>
+
+</div>
+
+<p-dialog [(visible)]="visible" [modal]="true" [closable]="false" [style]="{ width: '25rem' }">
+    <ng-template #header>
+        <div class="inline-flex items-center justify-center gap-2">
+            <span class="font-bold whitespace-nowrap">Criar ou editar Cliente</span>
+        </div>
+    </ng-template>
+
+    <div class="flex items-center gap-4 mb-4">
+        <label for="Customername" class="font-semibold w-24">cnpj</label>
+        <p-inputgroup>
+            <p-inputgroup-addon>
+                <i class="pi pi-id-card"></i>
+            </p-inputgroup-addon>
+            <input pInputText [(ngModel)]="creatOrEditCustomer.cnpj" placeholder="cnpj" />
+        </p-inputgroup>
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="Customername" class="font-semibold w-24">Razão Social</label>
+        <p-inputgroup>
+            <p-inputgroup-addon>
+                <i class="pi pi-address-book"></i>
+            </p-inputgroup-addon>
+            <input pInputText [(ngModel)]="creatOrEditCustomer.razaoSocial" placeholder="Razão Social" />
+        </p-inputgroup>
+    </div>
+
+    <br />
+    <br />
+
+    <ng-template #footer>
+        <p-button label="Cancel" [text]="true" severity="secondary" (click)="closeDialog()" />
+        <p-button label="Save" (click)="create()" [outlined]="true" severity="secondary" />
+    </ng-template>
+</p-dialog>
+
+<p-toast position="bottom-right" key="br" />
