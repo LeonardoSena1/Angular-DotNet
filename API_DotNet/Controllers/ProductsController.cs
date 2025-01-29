@@ -17,12 +17,12 @@ namespace API_DotNet.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ProductDTO>> GetUsers() =>
+        public async Task<IEnumerable<ProductDTO>> GetAll() =>
             await _productService.GetAll();
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductDTO>> GetUser(int id) =>
+        public async Task<ActionResult<ProductDTO>> GetProductById(int id) =>
              await _productService.GetById(id);
 
 

@@ -1,0 +1,69 @@
+<div class="card">
+
+    <p-button (click)="showDialog()" label="Cadastrar novo produto" icon="pi pi-plus" [raised]="true"
+        severity="secondary" />
+    <br />
+    <br />
+
+    <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" class="styled-table">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 120px;">Ações</th>
+                <th>Id</th>
+                <th>Nome do Produto</th>
+                <th>Preço</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+            <tr [ngClass]="{'even-row': rowIndex % 2 === 0}">
+                <td style="width: 120px;">
+                    <div class="flex">
+                        <i class="pi pi-file-edit" (click)="openModalEdit(product)"
+                            style="color: var(--primary-color); cursor: pointer;"></i>
+                        <i class="pi pi-times" (click)="deleteProd(product.id)"
+                            style="color: var(--color-red); cursor: pointer;"></i>
+                    </div>
+                </td>
+                <td>{{ product.id }}</td>
+                <td>{{ product.nomeProduto }}</td>
+                <td>{{ product.preco | currency:'BRL' }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <br />
+    <br />
+    <div> No total, existem {{ products ? products.length : 0 }} produtos. </div>
+
+</div>
+
+<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
+    <ng-template #header>
+        <div class="inline-flex items-center justify-center gap-2">
+            <span class="font-bold whitespace-nowrap">Criar ou editar produto</span>
+        </div>
+    </ng-template>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="username" class="font-semibold w-24">Nome</label>
+        <p-inputgroup>
+            <p-inputgroup-addon>
+                <i class="pi pi-user"></i>
+            </p-inputgroup-addon>
+            <input pInputText [(ngModel)]="creatOrEditProduct.nomeProduto" placeholder="Nome do produto" />
+        </p-inputgroup>
+
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="email" class="font-semibold w-24">Preço</label>
+        <p-inputgroup>
+            <p-inputgroup-addon>$</p-inputgroup-addon>
+            <p-inputnumber [(ngModel)]="creatOrEditProduct.preco" placeholder="Price" />
+        </p-inputgroup>
+    </div>
+    <ng-template #footer>
+        <p-button label="Cancel" [text]="true" severity="secondary" (click)="visible = false" />
+        <p-button label="Save" (click)="create()" [outlined]="true" severity="secondary" />
+    </ng-template>
+</p-dialog>
+
+<p-toast position="bottom-right" key="br" />
