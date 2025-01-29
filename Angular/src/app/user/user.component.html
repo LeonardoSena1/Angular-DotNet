@@ -1,0 +1,91 @@
+<div class="card">
+
+    <p-button (click)="showDialog()" label="Cadastrar novo usuário" icon="pi pi-plus" [raised]="true"
+        severity="secondary" />
+    <br />
+    <br />
+
+    <p-table [value]="users" [tableStyle]="{ 'min-width': '50rem' }" class="styled-table">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 120px;">Ações</th>
+                <th>Id</th>
+                <th>Nome</th>
+                <th style="width: 120px;">CPF</th>
+                <th>login</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user let-rowIndex="rowIndex">
+            <tr [ngClass]="{'even-row': rowIndex % 2 === 0}">
+                <td style="width: 120px;">
+                    <div class="flex">
+                        <i class="pi pi-file-edit" (click)="openModalEdit(user)"
+                            style="color: var(--primary-color); cursor: pointer;"></i>
+                        <i class="pi pi-times" (click)="deleteUser(user.id)"
+                            style="color: var(--color-red); cursor: pointer;"></i>
+                    </div>
+                </td>
+                <td>{{ user.id }}</td>
+                <td>{{ user.nomeUsuario }}</td>
+                <td style="width: 120px;">{{ user.cpf }}</td>
+                <td>{{ user.login }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <br />
+    <br />
+    <div> No total, existem {{ users ? users.length : 0 }} usuários. </div>
+
+</div>
+
+<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
+    <ng-template #header>
+        <div class="inline-flex items-center justify-center gap-2">
+            <span class="font-bold whitespace-nowrap">Criar ou editar usuário</span>
+        </div>
+    </ng-template>
+
+    <div class="flex items-center gap-4 mb-4">
+        <label for="username" class="font-semibold w-24">Login</label>
+        <p-inputgroup>
+            <p-inputgroup-addon>
+                <i class="pi pi-user"></i>
+            </p-inputgroup-addon>
+            <input pInputText [(ngModel)]="creatOrEditUser.login" placeholder="Login" />
+        </p-inputgroup>
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="username" class="font-semibold w-24">cpf</label>
+        <p-inputgroup>
+            <p-inputgroup-addon>
+                <i class="pi pi-id-card"></i>
+            </p-inputgroup-addon>
+            <input type="number" maxlength="11" max="11" [(ngModel)]="creatOrEditUser.cpf" placeholder="cpf" />
+        </p-inputgroup>
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="username" class="font-semibold w-24">Nome de usuário</label>
+        <p-inputgroup>
+            <p-inputgroup-addon>
+                <i class="pi pi-address-book"></i>
+            </p-inputgroup-addon>
+            <input pInputText [(ngModel)]="creatOrEditUser.nomeUsuario" placeholder="Nome de usuário" />
+        </p-inputgroup>
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="username" class="font-semibold w-24">Senha</label>
+        <p-password [(ngModel)]="creatOrEditUser.senha" [toggleMask]="true" />
+
+    </div>
+
+    <br />
+    <br />
+
+    <ng-template #footer>
+        <p-button label="Cancel" [text]="true" severity="secondary" (click)="visible = false" />
+        <p-button label="Save" (click)="create()" [outlined]="true" severity="secondary" />
+    </ng-template>
+</p-dialog>
+
+<p-toast position="bottom-right" key="br" />

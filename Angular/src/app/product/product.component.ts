@@ -16,7 +16,6 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { SpinnerService } from '../services/spinner.service';
 import { finalize } from 'rxjs';
-import { subscribe } from 'diagnostics_channel';
 
 @Component({
   selector: 'app-product',
