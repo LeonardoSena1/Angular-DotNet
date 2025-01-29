@@ -68,7 +68,16 @@ export class ProductComponent implements OnInit {
       )
       .subscribe(data => {
         this.products = data;
-      });
+      }, error => {
+        console.error('Erro ao salvar produto:', error);
+        console.log('Requisição finalizada: ', this.creatOrEditProduct);
+        this._messageService.add({ severity: 'error', summary: 'Erro ao salvar', detail: error.message, key: 'br', life: 5000 });
+        this._spinnerService.hide();
+      },
+        () => {
+
+        }
+      );
   }
 
   create() {
@@ -106,6 +115,7 @@ export class ProductComponent implements OnInit {
   }
 
   closeDialog() {
+    this.creatOrEditProduct = new ProductDTO(null, null, null);
     this.visible = false;
   }
 }

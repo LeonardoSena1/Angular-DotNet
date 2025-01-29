@@ -83,7 +83,7 @@
     <br />
 
     <ng-template #footer>
-        <p-button label="Cancel" [text]="true" severity="secondary" (click)="visible = false" />
+        <p-button label="Cancel" [text]="true" severity="secondary" (click)="closeDialog()" />
         <p-button label="Save" (click)="create()" [outlined]="true" severity="secondary" />
     </ng-template>
 </p-dialog>

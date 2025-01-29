@@ -92,7 +92,7 @@ export class UserComponent implements OnInit {
             this._spinnerService.hide();
           },
           () => {
-            
+
           }
         );
 
@@ -121,6 +121,7 @@ export class UserComponent implements OnInit {
   }
 
   closeDialog() {
+    this.creatOrEditUser = new UserDTO(null, null, null, null, null);
     this.visible = false;
   }
 }
