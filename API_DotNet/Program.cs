@@ -5,6 +5,7 @@ using API_DotNet.Repository.Order;
 using API_DotNet.Repository.Product;
 using API_DotNet.Repository.User;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +29,42 @@ builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddTransient<IEncryptionService, EncryptionService>();
 
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "API",
+        Version = "v1",
+        Contact = new OpenApiContact
+        {
+            Name = "API",
+            Email = "suporte@dev.com.br",
+        },
+    });
+
+    options.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme()
+    {
+        Name = "api-key",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Description = "Authorization by x-api-key inside request's header",
+        Scheme = "api-key"
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        { new OpenApiSecurityScheme()
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "ApiKey",
+                },
+                In = ParameterLocation.Header
+            }, new List<string>()
+        }
+    });
+});
 
 builder.Services.AddCors(options =>
 {

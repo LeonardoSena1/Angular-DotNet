@@ -1,4 +1,5 @@
-﻿using API_DotNet.Models.Customer;
+﻿using API_DotNet.Attribute;
+using API_DotNet.Models.Customer;
 using API_DotNet.Repository.Customer;
 using API_DotNet.Repository.Customer.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ namespace API_DotNet.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiKey]
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _customerService;
@@ -17,12 +19,12 @@ namespace API_DotNet.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<CustomerDTO>> GetUsers() =>
+        public async Task<IEnumerable<CustomerDTO>> GetAll() =>
             await _customerService.GetAll();
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<CustomerDTO>> GetUser(int id) =>
+        public async Task<ActionResult<CustomerDTO>> GetById(int id) =>
              await _customerService.GetById(id);
 
 
@@ -37,7 +39,7 @@ namespace API_DotNet.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task DeleteUser(int id) =>
+        public async Task Delete(int id) =>
              await _customerService.Delete(id);
     }
 }

@@ -1,4 +1,5 @@
-﻿using API_DotNet.Repository.Customer.Dtos;
+﻿using API_DotNet.Attribute;
+using API_DotNet.Repository.Customer.Dtos;
 using API_DotNet.Repository.Order;
 using API_DotNet.Repository.Order.Dtos;
 using API_DotNet.Repository.User.Dtos;
@@ -8,6 +9,7 @@ namespace API_DotNet.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiKey]
     public class OrdersController : ControllerBase
     {
         private readonly IOrderService _orderService;
@@ -37,7 +39,7 @@ namespace API_DotNet.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task DeleteUser(Guid id) =>
+        public async Task Delete(Guid id) =>
             await _orderService.DeleteOrderAsync(id);
 
         [HttpGet("GetAllUserForLookupTable")]

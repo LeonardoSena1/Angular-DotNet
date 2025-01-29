@@ -1,4 +1,5 @@
-﻿using API_DotNet.Models.Product;
+﻿using API_DotNet.Attribute;
+using API_DotNet.Models.Product;
 using API_DotNet.Repository.Product;
 using API_DotNet.Repository.Product.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ namespace API_DotNet.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiKey]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -37,7 +39,7 @@ namespace API_DotNet.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task DeleteUser(int id) =>
+        public async Task Delete(int id) =>
              await _productService.Delete(id);
     }
 }

@@ -1,4 +1,5 @@
-﻿using API_DotNet.Models.User;
+﻿using API_DotNet.Attribute;
+using API_DotNet.Models.User;
 using API_DotNet.Repository.User;
 using API_DotNet.Repository.User.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ namespace API_DotNet.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiKey]
     public class UsersController : ControllerBase
     {
         private readonly IUsersService _usersService;
@@ -22,6 +24,7 @@ namespace API_DotNet.Controllers
 
 
         [HttpGet("{id}")]
+        
         public async Task<ActionResult<UserDTO>> GetUser(int id) =>
              await _usersService.GetUser(id);
 
