@@ -1,0 +1,133 @@
+/* Estilo para a área de conteúdo */
+body {
+    background-color: #f0f8ff;
+    /* Cor branco gelo */
+}
+
+.content {
+    margin-left: 250px;
+    /* Ajuste a margem para acomodar o menu lateral */
+    padding: 20px;
+}
+
+/* Estilo para o card que envolve o conteúdo das páginas */
+.card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin: 20px auto;
+    /* Centraliza o card na tela */
+}
+
+/* Ajustes adicionais para o menu lateral */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #333;
+    color: white;
+    padding-top: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+}
+
+.sidebar ul li a:hover {
+    background-color: #444;
+}
+
+.sidebar ul li a.active {
+    background-color: #007bff;
+}
+
+/* Estilo para a tabela */
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilo para cabeçalhos */
+.styled-table th {
+    background-color: #2c3e50;
+    color: white;
+    text-align: left;
+    padding: 12px;
+}
+
+/* Estilo para as células */
+.styled-table td {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+/* Alternância de cores nas linhas */
+.styled-table .even-row {
+    background-color: #f2f2f2;
+}
+
+/* Efeito de hover nas linhas */
+.styled-table tr:hover {
+    background-color: #ddd;
+}
+
+.quantity-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  /* Estilo para os botões */
+  .quantity-btn {
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+  }
+  
+  .quantity-btn:hover {
+    background-color: #e0e0e0;
+  }
+  
+  /* Estilo para o input */
+  #quantity {
+    width: 60px;
+    height: 40px;
+    text-align: center;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+/* Melhorando a responsividade */
+@media (max-width: 768px) {
+    .styled-table th, .styled-table td {
+        padding: 10px;
+    }
+}

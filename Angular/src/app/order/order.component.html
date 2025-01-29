@@ -1,0 +1,101 @@
+<div class="card">
+
+    <p-button (click)="showDialog()" label="Cadastrar novo pedido" icon="pi pi-plus" [raised]="true"
+        severity="secondary" />
+    <br />
+    <br />
+
+    <p-table [value]="order" [tableStyle]="{ 'min-width': '50rem' }" class="styled-table">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 120px;">Ações</th>
+                <th>Cliente</th>
+                <th>Usuário</th>
+                <th>Total</th>
+                <th>Data Pedido</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-order let-rowIndex="rowIndex">
+            <tr [ngClass]="{'even-row': rowIndex % 2 === 0}">
+                <td style="width: 120px;">
+                    <div class="flex">
+                        <i class="pi pi-times" (click)="deleteOrder(order.id)"
+                            style="color: var(--color-red); cursor: pointer;"></i>
+                    </div>
+                </td>
+                <td>{{ order.customer.cnpj }}</td>
+                <td>{{ order.user.nomeUsuario }}</td>
+                <td>{{ order.total | currency:'BRL' }}</td>
+                <td>{{ order.createdAt | date : 'dd/MM/yyyy HH:mm' }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <br />
+    <br />
+    <div> No total, existem {{ order ? order.length : 0 }} pedidos. </div>
+
+</div>
+
+<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '55rem', height:'35rem'}">
+    <ng-template #header>
+        <div class="inline-flex items-center justify-center gap-2">
+            <span class="font-bold whitespace-nowrap">Criar pedido</span>
+        </div>
+    </ng-template>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="username" class="font-semibold w-24">Cliente (CPF)</label>
+        <p-autoComplete minLength="2" virtualScroll="true" [virtualScrollItemSize]="34"
+            [ngModelOptions]="{ standalone: true }" [(ngModel)]="selectedItemCustomer" [style]="{ width: '100%' }"
+            [dropdown]="true" [forceSelection]="true" [suggestions]="customer"
+            (completeMethod)="filterCustomers($event)" field="cnpj" dataKey="id"></p-autoComplete>
+    </div>
+
+    <div class="flex items-center gap-4 mb-4">
+        <label for="username" class="font-semibold w-24">Usuário (CNPJ)</label>
+        <p-autoComplete minLength="2" virtualScroll="true" [virtualScrollItemSize]="34"
+            [ngModelOptions]="{ standalone: true }" [(ngModel)]="selectedItemUser" [style]="{ width: '100%' }"
+            [dropdown]="true" [forceSelection]="true" [suggestions]="User" (completeMethod)="filterUser($event)"
+            field="cpf" dataKey="id"></p-autoComplete>
+    </div>
+
+    <div class="flex items-center">
+        <p-table [value]="orders" [tableStyle]="{ 'min-width': '50rem' }" class="styled-table">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 20px;">Ações</th>
+                    <th style="width: 120px;">Id</th>
+                    <th style="width: 120px;">Nome do Produto</th>
+                    <th style="width: 120px;">Preço</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-order let-rowIndex="rowIndex">
+                <tr [ngClass]="{'even-row': rowIndex % 2 === 0}">
+                    <td style="width: 20px;">
+                        <div class="quantity-container">
+                            <button class="quantity-btn" (click)="changeQuantity(order.id, 'decrease')">-</button>
+                            <input type="number" id="quantity" [(ngModel)]="order.quantity" [min]="1" />
+                            <button class="quantity-btn" (click)="changeQuantity(order.id, 'increase')">+</button>
+                            <p-button (click)="selectProductsToOrder(order.id, order.quantity)" label=""
+                                icon="pi pi-plus" [raised]="true" severity="secondary" />
+                        </div>
+                    </td>
+                    <td style="width: 120px;">{{ order.id }}</td>
+                    <td style="width: 120px;">{{ order.nomeProduto }}</td>
+                    <td style="width: 120px;">{{ order.preco | currency:'BRL' }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+    <ng-template #footer>
+        <p-button label="Cancel" [text]="true" severity="secondary" (click)="closeDialog()" />
+        <p-button label="Save" (click)="create()" [outlined]="true" severity="secondary" />
+    </ng-template>
+</p-dialog>
+
+<p-toast position="bottom-right" key="br" />

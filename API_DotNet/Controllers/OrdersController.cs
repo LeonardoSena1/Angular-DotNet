@@ -1,5 +1,7 @@
-﻿using API_DotNet.Repository.Order;
+﻿using API_DotNet.Repository.Customer.Dtos;
+using API_DotNet.Repository.Order;
 using API_DotNet.Repository.Order.Dtos;
+using API_DotNet.Repository.User.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_DotNet.Controllers
@@ -38,5 +40,20 @@ namespace API_DotNet.Controllers
         public async Task DeleteUser(Guid id) =>
             await _orderService.DeleteOrderAsync(id);
 
+        [HttpGet("GetAllUserForLookupTable")]
+        public async Task<List<UserDTO>> GetAllUserForLookupTable(string filterText)
+        {
+            var response = await _orderService.GetAllUserForLookupTable(filterText);
+
+            return response;
+        }
+
+        [HttpGet("GetAllCustomerForLookupTable")]
+        public async Task<List<CustomerDTO>> GetAllCustomerForLookupTable(string filterText)
+        {
+            var response = await _orderService.GetAllCustomerForLookupTable(filterText);
+
+            return response;
+        }
     }
 }

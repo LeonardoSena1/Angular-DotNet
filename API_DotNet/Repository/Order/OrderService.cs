@@ -1,6 +1,8 @@
 ﻿using API_DotNet.Infrastructures;
 using API_DotNet.Models.Orders;
+using API_DotNet.Repository.Customer.Dtos;
 using API_DotNet.Repository.Order.Dtos;
+using API_DotNet.Repository.User.Dtos;
 using Microsoft.EntityFrameworkCore;
 
 namespace API_DotNet.Repository.Order
@@ -89,6 +91,32 @@ namespace API_DotNet.Repository.Order
 
             _context.Orders.Remove(order);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<UserDTO>> GetAllUserForLookupTable(string filterText)
+        {
+            var user = await _context.Users
+                .Where(e => filterText == "all" || e.CPF.Contains(filterText) || e.NomeUsuario.Contains(filterText))
+                .ToListAsync();
+
+            if (user is null)
+                return new List<UserDTO>();
+
+            var userDTO = user.Select(u => UserMapper.ToDTO(u)).ToList();
+            return userDTO;
+        }
+
+        public async Task<List<CustomerDTO>> GetAllCustomerForLookupTable(string filterText)
+        {
+            var customer = await _context.Customers
+                .Where(e => filterText == "all" || e.Cnpj.Contains(filterText) || e.RazaoSocial.Contains(filterText))
+                .ToListAsync();
+
+            if (customer is null)
+                return new List<CustomerDTO>();
+
+            var customerDTO = customer.Select(u => CustomerMapper.ToDTO(u)).ToList();
+            return customerDTO;
         }
     }
 }
